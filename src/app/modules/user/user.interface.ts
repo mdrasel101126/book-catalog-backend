@@ -14,3 +14,11 @@ export type UserModel = {
     savedPassword: string
   ): Promise<boolean>;
 } & Model<IUser>;
+
+export type IUserCreateResponse = {
+  user: IUser;
+  accessToken: string;
+};
+export type IUserLoginResponse = {
+  accessToken: string;
+};

@@ -13,7 +13,18 @@ const createUserZodSchema = z.object({
     }),
   }),
 });
+const loginUserZodSchema = z.object({
+  body: z.object({
+    email: z.string({
+      required_error: "Email is required",
+    }),
+    password: z.string({
+      required_error: "Passsword is required",
+    }),
+  }),
+});
 
 export const UserValidation = {
   createUserZodSchema,
+  loginUserZodSchema,
 };
