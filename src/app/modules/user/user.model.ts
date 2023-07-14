@@ -21,9 +21,6 @@ const UserSchema = new Schema<IUser, UserModel>(
   },
   {
     timestamps: true,
-    toJSON: {
-      virtuals: true,
-    },
   }
 );
 
@@ -60,10 +57,13 @@ UserSchema.pre("findOneAndUpdate", async function (next) {
   }
   next();
 });
-/* UserSchema.methods.toJSON = function () {
+UserSchema.methods.toJSON = function () {
   const obj = this.toObject();
   delete obj.password;
+  delete obj.__v;
+  delete obj.createdAt;
+  delete obj.updatedAt;
   return obj;
-}; */
+};
 
 export const User = model<IUser, UserModel>("User", UserSchema);
