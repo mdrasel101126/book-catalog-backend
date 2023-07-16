@@ -8,6 +8,10 @@ const BookSchema = new Schema<IBook, BookModel>(
       required: true,
     },
     author: {
+      type: String,
+      required: true,
+    },
+    posterId: {
       type: Schema.Types.ObjectId,
       ref: "User",
     },
