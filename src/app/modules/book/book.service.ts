@@ -80,6 +80,7 @@ const deleteBook = async (id: string): Promise<IBook | null> => {
     throw new ApiError(httpStatus.NOT_FOUND, "Book not found");
   }
   const result = await Book.findByIdAndDelete(id);
+  await Review.deleteMany({ book: id });
 
   return result;
 };
