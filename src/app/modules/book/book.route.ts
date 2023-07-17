@@ -10,6 +10,8 @@ router.post(
   validateRequest(BookValidation.createBookZodSchema),
   BookController.createBook
 );
+router.patch("/:id", BookController.updateBook);
+router.delete("/:id", BookController.deleteBook);
 router.get("/", BookController.getBooks);
 router.get("/:id", BookController.getSingleBook);
 

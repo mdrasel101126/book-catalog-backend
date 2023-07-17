@@ -74,9 +74,35 @@ const getSingleBook = async (id: string): Promise<ISingleBookResponse> => {
     reviews: reviws,
   };
 };
+const deleteBook = async (id: string): Promise<IBook | null> => {
+  const isBookExist = await Book.isBookExist(id);
+  if (!isBookExist) {
+    throw new ApiError(httpStatus.NOT_FOUND, "Book not found");
+  }
+  const result = await Book.findByIdAndDelete(id);
+
+  return result;
+};
+const updateBook = async (
+  id: string,
+  payload: Partial<IBook>
+): Promise<IBook | null> => {
+  const isBookExist = await Book.isBookExist(id);
+  if (!isBookExist) {
+    throw new ApiError(httpStatus.NOT_FOUND, "Book not found");
+  }
+  const result = await Book.findOneAndUpdate({ _id: id }, payload, {
+    new: true,
+    runValidators: true,
+  });
+
+  return result;
+};
 
 export const BookService = {
   createBook,
   getBooks,
   getSingleBook,
+  deleteBook,
+  updateBook,
 };
