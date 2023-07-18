@@ -1,7 +1,11 @@
 import { Request, Response } from "express";
 import catchAsync from "../../../shared/catchAsync";
 import sendResponse from "../../../shared/sendResponse";
-import { IUserCreateResponse, IUserLoginResponse } from "./user.interface";
+import {
+  IUser,
+  IUserCreateResponse,
+  IUserLoginResponse,
+} from "./user.interface";
 import httpStatus from "http-status";
 import { UserService } from "./user.service";
 
@@ -24,7 +28,17 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getProfile = catchAsync(async (req: Request, res: Response) => {
+  const result = await UserService.getProfile(req.user?._id);
+  return sendResponse<IUser>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "User log in successfully",
+    data: result,
+  });
+});
 export const UserController = {
   createUser,
   loginUser,
+  getProfile,
 };
